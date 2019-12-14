@@ -1,0 +1,10 @@
+Material
+~ CsvLimpio.csv	Elimina el registro dañado en la linea 12662 (eliminado con editor)
+~ CsvOriginal.csv	Mantiene el anterior registro
+// Archivos generados desde Excel para ver la info de forma organizada:
+~ CSVTwitter.ods	LibreOffice
+~ CSVTwitter.xlxs	MS Excel
+
+HTML			Directorio donde deben ir las paginas web independientes
+~ Index.html		Página principal que debe hacer referencia al resto de págs. (Daniel M.)
+ |_ FuentesJsonArray	Directorio donde van los JSON array generados por la prog. fun y tomados por vegas lite
