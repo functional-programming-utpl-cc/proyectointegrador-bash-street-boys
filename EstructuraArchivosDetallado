@@ -8,6 +8,9 @@ Material
 
 HTML			Directorio donde deben ir las paginas web independientes
 ~ Index.html		Página principal que debe hacer referencia al resto de webs
+- Plantilla.html	Temporalmente contendra la plantilla hasta definir una estructura clara
  |_ FuentesCSV		Directorio donde van los JSON/CSV generados por la prog. fun y tomados por vegas lite
 	|_ origenDelTweet.csv recopila las ubicaciones de la cuenta que genero el tweet
+ |_ lib		Guarda algunas librerias en local necearia para la pag. web
+ |_ imagenes		Img. de la pag. web. degben guardarse aqui
 	
