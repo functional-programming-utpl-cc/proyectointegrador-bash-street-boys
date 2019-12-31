@@ -4,7 +4,10 @@ Material
 // Archivos generados desde Excel para ver la info de forma organizada:
 ~ CSVTwitter.ods	LibreOffice
 ~ CSVTwitter.xlxs	MS Excel
+- CsvLocationsModificadas.csv Se ha agrupado al 50% las localizaciones por paises omitiendo las ciudades
 
 HTML			Directorio donde deben ir las paginas web independientes
-~ Index.html		Página principal que debe hacer referencia al resto de págs. (Daniel M.)
- |_ FuentesJsonArray	Directorio donde van los JSON array generados por la prog. fun y tomados por vegas lite
+~ Index.html		Página principal que debe hacer referencia al resto de webs
+ |_ FuentesCSV		Directorio donde van los JSON/CSV generados por la prog. fun y tomados por vegas lite
+	|_ origenDelTweet.csv recopila las ubicaciones de la cuenta que genero el tweet
+	
