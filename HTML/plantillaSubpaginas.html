@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!-- Template by Quackit.com -->
+<html data-lt-installed="true" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Bootstrap Core CSS -->
+    <link href="lib/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
+    <link href="lib/custom.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- Código de vegas -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.9.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.0.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.2.1"></script>
+
+    <title>Métricas Tweets y RT por dia</title>
+
+    <style media="screen">
+        /* Add space between Vega-Embed links  */
+        .vega-actions a {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Logo and responsive toggle -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                	<span class="glyphicon glyphicon-fire"></span> 
+                	UTPL
+                </a>
+            </div>
+            <!-- links de la barra de navegación -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li class="active">
+                        <a href="#">Portfolio</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+  <!-- Content -->
+    <div class="container">
+
+        <!-- Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Tweets y Retweets por dia
+                    <small></small>
+                </h1>
+                <a href="#">
+                    <img class="img-responsive" src="imagenes/intro.jpg" alt="">
+                </a>
+                <p>
+                    <!-- Puede insertar aqui una descripción de todas las estadisticas, va despues de la imagen principal -->
+                </p>
+            </div>
+        </div>
+        <!-- /.row -->
+  
+  <!-- Projects Row -->
+        <div class="row">
+            <div class="col-md-6 portfolio-item">
+                
+                <h3>
+                    Número de tweets por dia
+                </h3>
+                <p>Upon yielding, kind sea subdue very seed sixth them 
+lesser one lesser there earth days were multiply so sixth gathering 
+fifth that man fowl made.</p>
+            </div>
+           <div id="graficaTweetsPorDia"></div>
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    Número retweets por dia
+                </h3>
+                <p>Upon yielding, kind sea subdue very seed sixth them 
+lesser one lesser there earth days were multiply so sixth gathering 
+fifth that man fowl made.</p>
+           <div id="graficaRetweetsPorDia"></div>
+            </div>
+        </div>
+        
+        <!-- /.Las gráficas van aqui, dentro del Script: -->
+    <script>
+    // Assign the specification to a local variable vlSpec.
+    const vlSpec1 = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+        data: {
+            "url": "FuentesCSV/retweetsPorDia.csv"
+        },
+        "width": 320,
+        "height": 200,
+        mark: 'bar',
+        encoding: {
+            x: {
+                field: 'day',
+                type: 'quantitative',
+                title: 'Día del mes',
+                "scale": {"domain": [1, 27]}
+            },
+            y: {
+                field: 'count',
+                type: 'quantitative',
+                title: 'Retweets por Dia'
+            }
+        }
+    }
+    ;
+    // Embed the visualization in the container with id `vis`
+    vegaEmbed('#graficaRetweetsPorDia', vlSpec1);
+        
+    const vlSpec3 = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+        data: {
+            "url": "FuentesCSV/tweetsPorDia.csv"
+        },
+        "width": 320,
+        "height": 200,
+        mark: 'bar',
+        encoding: {
+            x: {
+                field: 'dia',
+                type: 'quantitative',
+                title: 'Día del mes',
+                "scale": {"domain": [1, 27]}
+            },
+            y: {
+                field: 'count',
+                type: 'quantitative',
+                title: 'Tweets por dia'
+            }
+        }
+    }
+    ;
+    // Embed the visualization in the container with id `vis`
+    vegaEmbed('#graficaTweetsPorDia', vlSpec3);
+        
+    </script>
+        
+    <!-- jQuery -->
+    <script src="lib/jquery-1.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="lib/bootstrap.js"></script>
+    
+    <footer>
+       <div class="footer-blurb">
+           <p>Copyright © UTPL 2020</p>
+       </div>
+	</footer>
+    
+    </body>
+</html>
