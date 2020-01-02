@@ -19,12 +19,13 @@
 <body>
 <h1>Página de ejemplo con Vegas lite</h1>
 <!-- Container for the visualization -->
-<div id="vis1"></div>
-<div id="vis2"></div>
-<div id="vis3"></div>
-<div id="vis4"></div>
-<div id="vis5"></div>
-<div id="vis6"></div>
+<div id="graficaRetweetsPorDia"></div>
+<div id="graficaRetweetsPorHora"></div>
+<div id="graficaTweetsPorDia"></div>
+<div id="graficaTweetsPorHora"></div>
+<div id="graficaDistribucionHashtags"></div>
+<div id="graficaOrigenDelTweet"></div>
+<div id="graficaAppsMasUsadas"></div>
 
 <script>
     // Assign the specification to a local variable vlSpec.
@@ -52,7 +53,7 @@
     }
     ;
     // Embed the visualization in the container with id `vis`
-    vegaEmbed('#vis1', vlSpec1);
+    vegaEmbed('#graficaRetweetsPorDia', vlSpec1);
 
     const vlSpec2 = {
         $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
@@ -77,7 +78,7 @@
             }
         }
     };
-    vegaEmbed('#vis2', vlSpec2);
+    vegaEmbed('#graficaRetweetsPorHora', vlSpec2);
     
     const vlSpec3 = {
         $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
@@ -103,7 +104,7 @@
     }
     ;
     // Embed the visualization in the container with id `vis`
-    vegaEmbed('#vis3', vlSpec3);
+    vegaEmbed('#graficaTweetsPorDia', vlSpec3);
     
     const vlSpec4 = {
         $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
@@ -128,7 +129,7 @@
             }
         }
     };
-    vegaEmbed('#vis4', vlSpec4);
+    vegaEmbed('#graficaTweetsPorHora', vlSpec4);
     
     
     // Assign the specification to a local variable vlSpec.
@@ -156,7 +157,7 @@
     }
     ;
     // Embed the visualization in the container with id `vis`
-    vegaEmbed('#vis5', vlSpec5);
+    vegaEmbed('#graficaDistribucionHashtags', vlSpec5);
     
     // Assign the specification to a local variable vlSpec.
     const vlSpec6 = {
@@ -171,7 +172,23 @@
     }
 
     // Embed the visualization in the container with id `vis`
-    vegaEmbed('#vis6', vlSpec6);
+    vegaEmbed('#graficaOrigenDelTweet', vlSpec6);
+    
+    // Assign the specification to a local variable vlSpec.
+    const vlSpec7 = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+      "description": "Apps mas usuadas para publicar tweets.",
+      "data": {"url": "FuentesCSV/appsMasUsadas.csv"},
+      "mark": "bar",
+      "encoding": {
+        "x": {"field": "count", "type": "quantitative"},
+        "y": {"field": "app", "type": "nominal"}
+      }
+    }
+
+    // Embed the visualization in the container with id `vis`
+    vegaEmbed('#graficaAppsMasUsadas', vlSpec7);
+    
 </script>
 </body>
 </html>
