@@ -12,8 +12,9 @@ import scala.collection.immutable.ListMap
 
 val path2DataFile = "C:\\Users\\harry\\Documents\\David\\PF\\ods_2_3.csv"
 val formatDateTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
-//val pattern = new Regex("((http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:\\/~\\+#]*[\\w\\-\\@?^=%&amp;\\/~\\+#])?)")
 // expresion regular para encontrar url
+val pattern = new Regex("((http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:\\/~\\+#]*[\\w\\-\\@?^=%&amp;\\/~\\+#])?)")
+//EXPRESION REGULAR PARA ENCONTAR NOMBRES DE LAS PAGINAS WEB
 val pattern = new Regex(">.\\w*\\s\\w*\\s\\w*<")
 
 case class Tweet(
@@ -49,3 +50,13 @@ val desnenvolver:PartialFunction[Any, String] = { case Some(value:String) => val
 val namesPagesWebs=extraccionPWfromSource.collect(desnenvolver)
 val namesAgrupados =namesPagesWebs.groupBy(identity).map( { case (k,v) => (k,v.length)} )
 val namesAOrdenados= ListMap(namesAgrupados.toSeq.sortWith(_._2>_._2): _*)
+
+//devuelve una lista con los datos del campo source
+// distribucion de los url's
+val fromSourceList2 = values.map(tweet=> tweet.source)
+val extraccionURLS = fromSourceList2.map(x=> patternURL.findFirstIn(x))
+def desenvolver2:PartialFunction[Any, String] = { case Some(value:String) => value}
+val urls =extraccionURLS.collect(desenvolver2)
+val namesURLS =urls.groupBy(identity).map( { case (k,v) => (k,v.length)} )
+val urlsOrdenados = ListMap(namesURLS.toSeq.sortWith(_._2>_._2): _*)
+urlsOrdenados.foreach( println)
