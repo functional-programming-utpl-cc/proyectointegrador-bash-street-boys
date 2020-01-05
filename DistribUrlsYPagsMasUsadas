@@ -53,6 +53,7 @@ val namesAOrdenados= ListMap(namesAgrupados.toSeq.sortWith(_._2>_._2): _*)
 
 //devuelve una lista con los datos del campo source
 // distribucion de los url's
+
 val fromSourceList2 = values.map(tweet=> tweet.source)
 val extraccionURLS = fromSourceList2.map(x=> patternURL.findFirstIn(x))
 def desenvolver2:PartialFunction[Any, String] = { case Some(value:String) => value}
