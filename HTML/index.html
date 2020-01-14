@@ -26,6 +26,7 @@
 <div id="graficaDistribucionHashtags"></div>
 <div id="graficaOrigenDelTweet"></div>
 <div id="graficaAppsMasUsadas"></div>
+<div id="graficaMencionesPorTweet"></div>
 
 <script>
     // Assign the specification to a local variable vlSpec.
@@ -145,7 +146,7 @@
             x: {
                 field: 'NumHashtags',
                 type: 'quantitative',
-                title: 'Día del mes',
+                title: 'Hashtags por tweet',
                 "scale": {"domain": [1, 20]}
             },
             y: {
@@ -188,6 +189,21 @@
 
     // Embed the visualization in the container with id `vis`
     vegaEmbed('#graficaAppsMasUsadas', vlSpec7);
+    
+    // Assign the specification to a local variable vlSpec.
+    const vlSpec8 = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+      "description": "Usarios mas mencionados ordenados desendentemente.",
+      "data": {"url": "FuentesCSV/mencionesPorTweet.csv"},
+      "mark": "bar",
+      "encoding": {
+        "x": {"field": "count", "type": "quantitative"},
+        "y": {"field": "user", "type": "nominal"}
+      }
+    }
+
+    // Embed the visualization in the container with id `vis`
+    vegaEmbed('#graficaMencionesPorTweet', vlSpec8);
     
 </script>
 </body>
