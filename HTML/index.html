@@ -30,6 +30,7 @@
 
 <script>
     // Assign the specification to a local variable vlSpec.
+    // En esta grafica se mostraran todos los retweets que se crean por dia.
     const vlSpec1 = {
         $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
         data: {
@@ -56,6 +57,7 @@
     // Embed the visualization in the container with id `vis`
     vegaEmbed('#graficaRetweetsPorDia', vlSpec1);
 
+    //En esta grafica se mostraran los retweets por hora.
     const vlSpec2 = {
         $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
         data: {
@@ -80,7 +82,8 @@
         }
     };
     vegaEmbed('#graficaRetweetsPorHora', vlSpec2);
-    
+
+    // En esta grafica se muestra los tweets por dia.
     const vlSpec3 = {
         $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
         data: {
@@ -107,6 +110,7 @@
     // Embed the visualization in the container with id `vis`
     vegaEmbed('#graficaTweetsPorDia', vlSpec3);
     
+    // En esta grafica se muestra los tweets por hora.
     const vlSpec4 = {
         $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
         data: {
@@ -134,6 +138,7 @@
     
     
     // Assign the specification to a local variable vlSpec.
+    // En esta grafica se muestra la distribucion de hashtags.
     const vlSpec5 = {
         $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
         data: {
@@ -161,6 +166,7 @@
     vegaEmbed('#graficaDistribucionHashtags', vlSpec5);
     
     // Assign the specification to a local variable vlSpec.
+    // en esta grafica se mostrar el origen del tweet
     const vlSpec6 = {
       "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
       "description": "Origen de las cuentas generadoras del tweet.",
@@ -176,6 +182,8 @@
     vegaEmbed('#graficaOrigenDelTweet', vlSpec6);
     
     // Assign the specification to a local variable vlSpec.
+
+    // En esta grafica se mostrar las app mas utilizadas para publicar tweets.
     const vlSpec7 = {
       "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
       "description": "Apps mas usuadas para publicar tweets.",
@@ -191,6 +199,7 @@
     vegaEmbed('#graficaAppsMasUsadas', vlSpec7);
     
     // Assign the specification to a local variable vlSpec.
+    // el numero de usuarion mas mencionado ordenaos en desendentemente 
     const vlSpec8 = {
       "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
       "description": "A bar chart that sorts the y-values by the x-values.",
