@@ -193,15 +193,25 @@
     // Assign the specification to a local variable vlSpec.
     const vlSpec8 = {
       "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "description": "Usarios mas mencionados ordenados desendentemente.",
-      "data": {"url": "FuentesCSV/mencionesPorTweet.csv"},
+      "description": "A bar chart that sorts the y-values by the x-values.",
+      "data": {"url": "FuentesCSV/DistribucionMenciones.csv"},
       "mark": "bar",
       "encoding": {
-        "x": {"field": "count", "type": "quantitative"},
-        "y": {"field": "user", "type": "nominal"}
+        "y": {
+          "field": "mencion",
+          "type": "nominal",
+          
+        },
+        "x": {
+          
+          "field": "count",
+          "type": "quantitative",
+          
+         
+        }
       }
     }
-
+    
     // Embed the visualization in the container with id `vis`
     vegaEmbed('#graficaMencionesPorTweet', vlSpec8);
     
