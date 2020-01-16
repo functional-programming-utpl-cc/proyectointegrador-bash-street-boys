@@ -1,229 +1,295 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html data-lt-installed="true" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    
+    <title>Proyecto Integrador - UTPL</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/vega@5.9.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.0.2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.2.1"></script>
+    <!-- Bootstrap Core CSS -->
+    <link href="lib/bootstrap.css" rel="stylesheet">
 
-    <title>DataViz - Proyecto Programaci&oacute;n Funcional y Reactiva</title>
-
-    <style media="screen">
-        /* Add space between Vega-Embed links  */
-        .vega-actions a {
-            margin-right: 5px;
-        }
-    </style>
+    <!-- Nuestro CSS personalizado: -->
+    <link href="lib/custom.css" rel="stylesheet">
 </head>
 <body>
-<h1>Página de ejemplo con Vegas lite</h1>
-<!-- Container for the visualization -->
-<div id="graficaRetweetsPorDia"></div>
-<div id="graficaRetweetsPorHora"></div>
-<div id="graficaTweetsPorDia"></div>
-<div id="graficaTweetsPorHora"></div>
-<div id="graficaDistribucionHashtags"></div>
-<div id="graficaOrigenDelTweet"></div>
-<div id="graficaAppsMasUsadas"></div>
-<div id="graficaMencionesPorTweet"></div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Logo and responsive toggle -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">
+                	UTPL
+                </a>
+            </div>
+            <!-- Barra de navegación -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="index.html">Inicio</a>
+                    </li>
+                    <li>
+                        <a href="MetricasTiempo.html">Tiempo</a>
+                    </li>
+                    <li>
+                        <a href="MetricasApps.html">Apps</a>
+                    </li>
+                    <li>
+                        <a href="MetricasDistribucion.html">Distribución</a>
+                    </li>
+                    <li>
+                        <a href="MetricasCorrelacion.html">Correlación</a>
+                    </li>
+                    <li>
+                        <a href="MetricasComportamiento.html">Comportamiento</a>
+                    </li>
+                    <li>
+                        <a href="MetricasMenciones.html">Mención</a>
+                    </li>
+                    
+                    <li>
+                        <a href="MetricasAnalisis.html">Análisis</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="index.html#team">Equipo</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
 
-<script>
-    // Assign the specification to a local variable vlSpec.
-    // En esta grafica se mostraran todos los retweets que se crean por dia.
-    const vlSpec1 = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
-        data: {
-            "url": "FuentesCSV/retweetsPorDia.csv"
-        },
-        "width": 320,
-        "height": 200,
-        mark: 'bar',
-        encoding: {
-            x: {
-                field: 'day',
-                type: 'quantitative',
-                title: 'Día del mes',
-                "scale": {"domain": [1, 27]}
-            },
-            y: {
-                field: 'count',
-                type: 'quantitative',
-                title: 'Retweets por Dia'
-            }
-        }
-    }
-    ;
-    // Embed the visualization in the container with id `vis`
-    vegaEmbed('#graficaRetweetsPorDia', vlSpec1);
+    <!-- Content -->
+    <div class="container">
 
-    //En esta grafica se mostraran los retweets por hora.
-    const vlSpec2 = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
-        data: {
-            "url": "FuentesCSV/retweetsPorHora.csv"
-        },
-        "width": 320,
-        "height": 200,
-        mark: 'area',
-        encoding: {
-            x: {
-                field: 'hora',
-                type: 'quantitative',
-                title: 'Hora del día',
-                scale: {"domain": [0, 24]}
-            },
-            y: {
-                field: 'count',
-                aggregate: 'sum',
-                type: 'quantitative',
-                title: 'Retweets por Hora'
-            }
-        }
-    };
-    vegaEmbed('#graficaRetweetsPorHora', vlSpec2);
+        <!-- Heading -->
+        <div class="row">
+            <div class="col-lg-12"  >
+                <center><h1 class="page-header">Proyecto integrador</h1></center>
+                <a href="#"  >
+                    <center><img style="width:768px; height:200px;" src="imagenes/intro.png"/></center>
+                   
+                </a>
+                <p>
+                    Para el siguiente proyecto que se apreparado en conunto con las materias Fundamento de bases de datos, programacion funcional y Practicum, se nos a puesto la tarea de crear una pagina web donde por medio de scala y vega lite, creemos graficos estadistico, anterior mente ejecutados en scala para ser visible en el pagina web. 
+                </p>
+            </div>
+        </div>
+        <!-- /.row -->
 
-    // En esta grafica se muestra los tweets por dia.
-    const vlSpec3 = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
-        data: {
-            "url": "FuentesCSV/tweetsPorDia.csv"
-        },
-        "width": 320,
-        "height": 200,
-        mark: 'bar',
-        encoding: {
-            x: {
-                field: 'dia',
-                type: 'quantitative',
-                title: 'Día del mes',
-                "scale": {"domain": [1, 27]}
-            },
-            y: {
-                field: 'count',
-                type: 'quantitative',
-                title: 'Tweets por dia'
-            }
-        }
-    }
-    ;
-    // Embed the visualization in the container with id `vis`
-    vegaEmbed('#graficaTweetsPorDia', vlSpec3);
-    
-    // En esta grafica se muestra los tweets por hora.
-    const vlSpec4 = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
-        data: {
-            "url": "FuentesCSV/tweetsPorHora.csv"
-        },
-        "width": 320,
-        "height": 200,
-        mark: 'area',
-        encoding: {
-            x: {
-                field: 'hour',
-                type: 'quantitative',
-                title: 'Tweets por Hora',
-                scale: {"domain": [0, 23]}
-            },
-            y: {
-                field: 'count',
-                aggregate: 'sum',
-                type: 'quantitative',
-                title: 'Tweets por Hora'
-            }
-        }
-    };
-    vegaEmbed('#graficaTweetsPorHora', vlSpec4);
-    
-    
-    // Assign the specification to a local variable vlSpec.
-    // En esta grafica se muestra la distribucion de hashtags.
-    const vlSpec5 = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
-        data: {
-            "url": "FuentesCSV/DistribucionHashtags.csv"
-        },
-        "width": 320,
-        "height": 200,
-        mark: 'bar',
-        encoding: {
-            x: {
-                field: 'NumHashtags',
-                type: 'quantitative',
-                title: 'Hashtags por tweet',
-                "scale": {"domain": [1, 20]}
-            },
-            y: {
-                field: 'count',
-                type: 'quantitative',
-                title: 'Distribución de hashtags'
-            }
-        }
-    }
-    ;
-    // Embed the visualization in the container with id `vis`
-    vegaEmbed('#graficaDistribucionHashtags', vlSpec5);
-    
-    // Assign the specification to a local variable vlSpec.
-    // en esta grafica se mostrar el origen del tweet
-    const vlSpec6 = {
-      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "description": "Origen de las cuentas generadoras del tweet.",
-      "data": {"url": "FuentesCSV/origenDelTweet.csv"},
-      "mark": "bar",
-      "encoding": {
-        "x": {"field": "count", "type": "quantitative"},
-        "y": {"field": "location", "type": "nominal"}
-      }
-    }
+        <!-- Métricas ordenadas por tiempo -->
+        <div class="row">
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    <a href="MetricasTiempo.html">Número de tweets y retweets por día</a>
+                </h3>
+                <p>Por medio de vega mostramos el numero de tweets y retweets
+                por día</p>
+            </div>
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    <a href="MetricasTiempo.html">Número de tweets y retweets por hora</a>
+                </h3>
+                <p>en tas grafica podremos ver el numero de retweets por hora 
+                que se realizan.</p>
+            </div>
+        </div>
+        <!-- Fin de las Métricas ordenadas por tiempo -->
 
-    // Embed the visualization in the container with id `vis`
-    vegaEmbed('#graficaOrigenDelTweet', vlSpec6);
-    
-    // Assign the specification to a local variable vlSpec.
+        <!-- Métricas de las apps mas usadas y de distribución -->
+        <div class="row">
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    <a href="MetricasApps.html">Aplicaciones más utilizadas para publicar tweets</a>
+                </h3>
+                <p>Se mostrara el sistema operativo del cual se ven mas tweets.</p>
+            </div>
+            
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    <a href="MetricasDistribucion.html">Distribución de Hashtags</a>
+                </h3>
+                <p>La distribuciuon de hastahhs mostrar el mas utilizado por los usuarios.</p>
+            </div>
+           
+            
+        </div>
 
-    // En esta grafica se mostrar las app mas utilizadas para publicar tweets.
-    const vlSpec7 = {
-      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "description": "Apps mas usuadas para publicar tweets.",
-      "data": {"url": "FuentesCSV/appsMasUsadas.csv"},
-      "mark": "bar",
-      "encoding": {
-        "x": {"field": "count", "type": "quantitative"},
-        "y": {"field": "app", "type": "nominal"}
-      }
-    }
+        <!-- Métricas por distribución -->
+        <div class="row">
+           
+           
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    <a href="MetricasDistribucion.html">Distribución de menciones</a>
+                </h3>
+                <p>Se mostrara las distribucion de la gente mencionada en los tweet.</p>
+            </div>
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    <a href="MetricasDistribucion.html">Distribución de URLs</a>
+                </h3>
+                <p>Se mostrar todas las util tulizadas en conjunto a los tweet.</p>
+            </div>
+            
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    <a href="MetricasDistribucion.html">Distribución de media</a>
+                </h3>
+                <p>Se mostrarar las distribucion de imagenes que se puede ver en los tweet.</p>
+            </div>
+            
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    <a href="MetricasDistribucion.html">Distribución: Probabilidad de tener un hashtag</a>
+                </h3>
+                <p>Upon yielding, kind sea subdue very seed sixth them 
+                lesser one lesser there earth days were multiply so sixth gathering 
+                fifth that man fowl made.</p>
+            </div>
+            
+        </div>
+        
+        <!-- Métrica de correlación -->
+        <div class="row">
+            
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    <a href="MetricasCorrelacion.html">¿Existe una correlación entre el número de amigos y la cantidad de seguidores?</a>
+                </h3>
+                <p>Anlisis sobre si se teiene una realacion entre seguidores y amigos.</p>
+            </div>
+            
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    <a href="MetricasComportamiento.html">Comportamiento de los usuarios</a>
+                </h3>
+                <p>Upon yielding, kind sea subdue very seed sixth them 
+                lesser one lesser there earth days were multiply so sixth gathering 
+                fifth that man fowl made.</p>
+            </div>
+            
+        </div>
+        
+        <!-- Menciones -->
+        <div class="row">
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    <a href="MetricasMenciones.html">Cuantas veces se ha mencionado al usuario</a>
+                </h3>
+                <p>Upon yielding, kind sea subdue very seed sixth them 
+                lesser one lesser there earth days were multiply so sixth gathering 
+                fifth that man fowl made.</p>
+            </div>
+            
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    <a href="MetricasAnalisis.html">Analisis sintáctico: emojis mas usados</a>
+                </h3>
+                <p>Upon yielding, kind sea subdue very seed sixth them 
+                lesser one lesser there earth days were multiply so sixth gathering 
+                fifth that man fowl made.</p>
+            </div>
+            
+        </div>
+        
+        <!-- Projects Row -->
+        <div class="row"> 
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    <a href="MetricasAnalisis.html">Analisis sintáctico: nube de palabras</a>
+                </h3>
+                <p>Upon yielding, kind sea subdue very seed sixth them 
+                lesser one lesser there earth days were multiply so sixth gathering 
+                fifth that man fowl made.</p>
+            </div>
+           
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    <a href="MetricasAnalisis.html">Analisis sintáctico: nube de hashtags</a>
+                </h3>
+                <p>Upon yielding, kind sea subdue very seed sixth them 
+                lesser one lesser there earth days were multiply so sixth gathering 
+                fifth that man fowl made.</p>
+            </div>
+            
+        </div>
+        
+         <!-- Projects Row -->
+        <div class="row"> 
+            <div class="col-md-6 portfolio-item">
+                <h3>
+                    <a href="MetricasDistribucion.html">Distribución de la ubicación de las cuentas que han publicado los tweets</a>
+                </h3>
+                <p>presentamos el origen de los tweets; es decir su localización física, donde 
+                notamos que la mayoría de los usuarios prefieren no especificar su ubicación, 
+                mientras que como segundo resultado notamos que los usuarios españoles son quienes 
+                generan más tweets que los países latinoamericanos.</p>
+            </div>
+            
+        </div>
+        
+    </div>
+    <!-- /.container -->
+	
+	<footer>
+	    
+		<div class="footer-blurb">
+        <h1 class="page-header"><a name = "team">Nuestro Equipo</a></h1>
+	
+				<div class="container">
+				<div class="row">
+					<div class="col-sm-4 footer-blurb-item">
+						<img class="img-circle" src="http://lorempixel.com/100/100/people/3" alt="" width="100" height="100">
+						<h3>Daniel 1</h3>
+						<p>fedgeg </p>
+						
+					</div>
+					<div class="col-sm-4 footer-blurb-item">
+						<img class="img-circle" src="http://lorempixel.com/100/100/people/1" alt="" width="100" height="100">
+						<h3>David Álvarez</h3>
+						<p>Upon yielding, kind sea subdue very seed sixth them lesser one 
+                        lesser there earth days were multiply so sixth gathering fifth that man 
+                        fowl made.</p>
+						
+					</div>
+					<div class="col-sm-4 footer-blurb-item">
+						<img class="img-circle" src="http://lorempixel.com/100/100/people/2" alt="" width="100" height="100">
+						<h3>Daniel 2</h3>
+						<p>Upon yielding, kind sea subdue very seed sixth them lesser one 
+                        lesser there earth days were multiply so sixth gathering fifth that man 
+                        fowl made.</p>
+                        						
+					</div>
 
-    // Embed the visualization in the container with id `vis`
-    vegaEmbed('#graficaAppsMasUsadas', vlSpec7);
-    
-    // Assign the specification to a local variable vlSpec.
-    // el numero de usuarion mas mencionado ordenaos en desendentemente 
-    const vlSpec8 = {
-      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "description": "A bar chart that sorts the y-values by the x-values.",
-      "data": {"url": "FuentesCSV/DistribucionMenciones.csv"},
-      "mark": "bar",
-      "encoding": {
-        "y": {
-          "field": "mencion",
-          "type": "nominal",
-          
-        },
-        "x": {
-          
-          "field": "count",
-          "type": "quantitative",
-          
-         
-        }
-      }
-    }
-    
-    // Embed the visualization in the container with id `vis`
-    vegaEmbed('#graficaMencionesPorTweet', vlSpec8);
-    
-</script>
+				</div>
+				<!-- /.row -->	
+			</div>
+        </div>
+        
+        <div class="copyright">
+        	<div class="container">
+        		<p>Copyright © UTPL 2019 - 2020</p>
+        	</div>
+        </div>
+	</footer>
+
+	
+    <!-- jQuery -->
+    <script src="lib/jquery-1.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="lib/bootstrap.js"></script>
 </body>
 </html>

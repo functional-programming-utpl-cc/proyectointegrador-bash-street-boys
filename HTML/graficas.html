@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.9.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.0.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.2.1"></script>
+
+    <title>DataViz - Proyecto Programaci&oacute;n Funcional y Reactiva</title>
+
+    <style media="screen">
+        /* Add space between Vega-Embed links  */
+        .vega-actions a {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>Página de ejemplo con Vegas lite</h1>
+<!-- Container for the visualization -->
+<div id="graficaRetweetsPorDia"></div>
+<div id="graficaRetweetsPorHora"></div>
+<div id="graficaTweetsPorDia"></div>
+<div id="graficaTweetsPorHora"></div>
+<div id="graficaDistribucionHashtags"></div>
+<div id="graficaOrigenDelTweet"></div>
+<div id="graficaAppsMasUsadas"></div>
+<div id="graficaMencionesPorTweet"></div>
+
+<script>
+    // Assign the specification to a local variable vlSpec.
+    // En esta grafica se mostraran todos los retweets que se crean por dia.
+    const vlSpec1 = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+        data: {
+            "url": "FuentesCSV/retweetsPorDia.csv"
+        },
+        "width": 320,
+        "height": 200,
+        mark: 'bar',
+        encoding: {
+            x: {
+                field: 'day',
+                type: 'quantitative',
+                title: 'Día del mes',
+                "scale": {"domain": [1, 27]}
+            },
+            y: {
+                field: 'count',
+                type: 'quantitative',
+                title: 'Retweets por Dia'
+            }
+        }
+    }
+    ;
+    // Embed the visualization in the container with id `vis`
+    vegaEmbed('#graficaRetweetsPorDia', vlSpec1);
+
+    //En esta grafica se mostraran los retweets por hora.
+    const vlSpec2 = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+        data: {
+            "url": "FuentesCSV/retweetsPorHora.csv"
+        },
+        "width": 320,
+        "height": 200,
+        mark: 'area',
+        encoding: {
+            x: {
+                field: 'hora',
+                type: 'quantitative',
+                title: 'Hora del día',
+                scale: {"domain": [0, 24]}
+            },
+            y: {
+                field: 'count',
+                aggregate: 'sum',
+                type: 'quantitative',
+                title: 'Retweets por Hora'
+            }
+        }
+    };
+    vegaEmbed('#graficaRetweetsPorHora', vlSpec2);
+
+    // En esta grafica se muestra los tweets por dia.
+    const vlSpec3 = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+        data: {
+            "url": "FuentesCSV/tweetsPorDia.csv"
+        },
+        "width": 320,
+        "height": 200,
+        mark: 'bar',
+        encoding: {
+            x: {
+                field: 'dia',
+                type: 'quantitative',
+                title: 'Día del mes',
+                "scale": {"domain": [1, 27]}
+            },
+            y: {
+                field: 'count',
+                type: 'quantitative',
+                title: 'Tweets por dia'
+            }
+        }
+    }
+    ;
+    // Embed the visualization in the container with id `vis`
+    vegaEmbed('#graficaTweetsPorDia', vlSpec3);
+    
+    // En esta grafica se muestra los tweets por hora.
+    const vlSpec4 = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+        data: {
+            "url": "FuentesCSV/tweetsPorHora.csv"
+        },
+        "width": 320,
+        "height": 200,
+        mark: 'area',
+        encoding: {
+            x: {
+                field: 'hour',
+                type: 'quantitative',
+                title: 'Tweets por Hora',
+                scale: {"domain": [0, 23]}
+            },
+            y: {
+                field: 'count',
+                aggregate: 'sum',
+                type: 'quantitative',
+                title: 'Tweets por Hora'
+            }
+        }
+    };
+    vegaEmbed('#graficaTweetsPorHora', vlSpec4);
+    
+    
+    // Assign the specification to a local variable vlSpec.
+    // En esta grafica se muestra la distribucion de hashtags.
+    const vlSpec5 = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+        data: {
+            "url": "FuentesCSV/DistribucionHashtags.csv"
+        },
+        "width": 320,
+        "height": 200,
+        mark: 'bar',
+        encoding: {
+            x: {
+                field: 'NumHashtags',
+                type: 'quantitative',
+                title: 'Hashtags por tweet',
+                "scale": {"domain": [1, 20]}
+            },
+            y: {
+                field: 'count',
+                type: 'quantitative',
+                title: 'Distribución de hashtags'
+            }
+        }
+    }
+    ;
+    // Embed the visualization in the container with id `vis`
+    vegaEmbed('#graficaDistribucionHashtags', vlSpec5);
+    
+    // Assign the specification to a local variable vlSpec.
+    // en esta grafica se mostrar el origen del tweet
+    const vlSpec6 = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+      "description": "Origen de las cuentas generadoras del tweet.",
+      "data": {"url": "FuentesCSV/origenDelTweet.csv"},
+      "mark": "bar",
+      "encoding": {
+        "x": {"field": "count", "type": "quantitative"},
+        "y": {"field": "location", "type": "nominal"}
+      }
+    }
+
+    // Embed the visualization in the container with id `vis`
+    vegaEmbed('#graficaOrigenDelTweet', vlSpec6);
+    
+    // Assign the specification to a local variable vlSpec.
+
+    // En esta grafica se mostrar las app mas utilizadas para publicar tweets.
+    const vlSpec7 = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+      "description": "Apps mas usuadas para publicar tweets.",
+      "data": {"url": "FuentesCSV/appsMasUsadas.csv"},
+      "mark": "bar",
+      "encoding": {
+        "x": {"field": "count", "type": "quantitative"},
+        "y": {"field": "app", "type": "nominal"}
+      }
+    }
+
+    // Embed the visualization in the container with id `vis`
+    vegaEmbed('#graficaAppsMasUsadas', vlSpec7);
+    
+    // Assign the specification to a local variable vlSpec.
+    // el numero de usuarion mas mencionado ordenaos en desendentemente 
+    const vlSpec8 = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+      "description": "A bar chart that sorts the y-values by the x-values.",
+      "data": {"url": "FuentesCSV/DistribucionMenciones.csv"},
+      "mark": "bar",
+      "encoding": {
+        "y": {
+          "field": "mencion",
+          "type": "nominal",
+          
+        },
+        "x": {
+          
+          "field": "count",
+          "type": "quantitative",
+          
+         
+        }
+      }
+    }
+    
+    // Embed the visualization in the container with id `vis`
+    vegaEmbed('#graficaMencionesPorTweet', vlSpec8);
+    
+</script>
+</body>
+</html>
