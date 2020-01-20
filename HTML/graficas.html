@@ -26,9 +26,45 @@
 <div id="graficaDistribucionHashtags"></div>
 <div id="graficaOrigenDelTweet"></div>
 <div id="graficaAppsMasUsadas"></div>
-<div id="graficaMencionesPorTweet"></div>
+<!-- <div id="graficaMencionesPorTweet"></div> // TODO Grafica que no funciona omitida temporalmente-->
+<dev id="graficaDistribucionURLs"></dev>
+<dev id="tweetsVsRtPorDia"></dev>
 
 <script>
+    const tweetsVsRtPorDia = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": { "url": "data/population.json"},
+  "transform": [
+    {"filter": "datum.year == 2000"},
+    {"calculate": "datum.sex == 2 ? 'Female' : 'Male'", "as": "gender"}
+  ],
+  "width": {"step": 12},
+  "mark": "bar",
+  "encoding": {
+    "column": {
+      "field": "age", "type": "ordinal", "spacing": 10
+    },
+    "y": {
+      "aggregate": "sum", "field": "people", "type": "quantitative",
+      "axis": {"title": "population", "grid": false}
+    },
+    "x": {
+      "field": "gender", "type": "nominal",
+      "axis": {"title": ""}
+    },
+    "color": {
+      "field": "gender", "type": "nominal",
+      "scale": {"range": ["#675193", "#ca8861"]}
+    }
+  },
+  "config": {
+    "view": {"stroke": "transparent"},
+    "axis": {"domainWidth": 1}
+  }
+}
+        vegaEmbed('#tweetsVsRtPorDia', graficaDistribucionURLs);
+
+    
     // Assign the specification to a local variable vlSpec.
     // En esta grafica se mostraran todos los retweets que se crean por dia
     const vlSpec1 = {
@@ -187,11 +223,11 @@
     const vlSpec7 = {
       "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
       "description": "Apps mas usuadas para publicar tweets.",
-      "data": {"url": "FuentesCSV/appsMasUsadas.csv"},
+      "data": {"url": "FuentesCSV/urlsmasusados.csv"},
       "mark": "bar",
       "encoding": {
         "x": {"field": "count", "type": "quantitative"},
-        "y": {"field": "app", "type": "nominal"}
+        "y": {"field": "urlsmasusados", "type": "nominal"}
       }
     }
 
@@ -223,6 +259,35 @@
     
     // Embed the visualization in the container with id `vis`
     vegaEmbed('#graficaMencionesPorTweet', vlSpec8);
+    
+    const vlSpec9 = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": {"url": "FuentesCSV/urlsmasusados.csv"},
+  "encoding": {
+    "y": {"field": "urlsmasusados", "type": "ordinal"},
+    "x": {"field": "count", "type": "quantitative"}
+  },
+    {
+    "transform": [
+     {"filter": {"field": "count", "gte": 100}}
+    ] 
+ , "layer": [{
+    "mark": "bar"
+  }, {
+    "mark": {
+      "type": "text",
+      "align": "left",
+      "baseline": "middle",
+      "dx": 3
+    },
+    "encoding": {
+      "text": {"field": "count", "type": "quantitative"}
+    }
+  }]
+}
+
+    vegaEmbed('#graficaDistribucionURLs', vlSpec9);
+
     
 </script>
 </body>
