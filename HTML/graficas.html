@@ -24,6 +24,7 @@
 <div id="graficaTweetsPorDia"></div>
 <div id="graficaTweetsPorHora"></div>
 <div id="graficaDistribucionHashtags"></div>
+<div id="graficaDistribucionMedia"></div>
 <div id="graficaOrigenDelTweet"></div>
 <div id="graficaAppsMasUsadas"></div>
 <div id="graficaMencionesPorTweet"></div>
@@ -196,6 +197,32 @@
     
     // Embed the visualization in the container with id `vis`
     vegaEmbed('#graficaDistribucionHashtags', vlSpec5);
+    
+    // En esta grafica se muestra la distribucion de hashtags.
+    const graficaMedia = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": {"url": "FuentesCSV/DistribucionMedia.csv"},
+  "encoding": {
+    "y": {"field": "nromedia", "type": "ordinal"},
+    "x": {"field": "nrotweet", "type": "quantitative"}
+  },
+  "layer": [{
+    "mark": "bar"
+  }, {
+    "mark": {
+      "type": "text",
+      "align": "left",
+      "baseline": "middle",
+      "dx": 3
+    },
+    "encoding": {
+      "text": {"field": "nrotweet", "type": "quantitative"}
+    }
+  }]
+}
+    
+    // Embed the visualization in the container with id `vis`
+    vegaEmbed('#graficaDistribucionMedia', graficaMedia);
     
     // Assign the specification to a local variable vlSpec.
     // en esta grafica se mostrar el origen del tweet
