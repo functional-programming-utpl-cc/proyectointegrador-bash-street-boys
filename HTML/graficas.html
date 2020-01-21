@@ -233,7 +233,7 @@
       "mark": "bar",
       "encoding": {
         "x": {"field": "count", "type": "quantitative"},
-        "y": {"field": "location", "type": "nominal"}
+        "y": {"field": "location", "type": "nominal", "sort": "-x"}
       }
     }
 
@@ -243,19 +243,19 @@
     // Assign the specification to a local variable vlSpec.
 
     // En esta grafica se mostrar las app mas utilizadas para publicar tweets.
-    const vlSpec7 = {
+    const graficaApps = {
       "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
       "description": "Apps mas usuadas para publicar tweets.",
-      "data": {"url": "FuentesCSV/urlsmasusados.csv"},
+      "data": {"url": "FuentesCSV/appsMasUsadas.csv"},
       "mark": "bar",
       "encoding": {
         "x": {"field": "count", "type": "quantitative"},
-        "y": {"field": "urlsmasusados", "type": "nominal"}
+        "y": {"field": "app", "type": "nominal", "sort": "-x"}
       }
     }
 
     // Embed the visualization in the container with id `vis`
-    vegaEmbed('#graficaAppsMasUsadas', vlSpec7);
+    vegaEmbed('#graficaAppsMasUsadas', graficaApps);
     
     // Assign the specification to a local variable vlSpec.
     // el numero de usuarion mas mencionado ordenaos en desendentemente 
@@ -263,7 +263,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "data": {"url": "FuentesCSV/MencionesPorTweet.csv"},
   "encoding": {
-    "y": {"field": "mention", "type": "ordinal"},
+    "y": {"field": "mention", "type": "ordinal", "sort": "-x"},
     "x": {"field": "count", "type": "quantitative"}
   },
   "layer": [{
@@ -288,7 +288,7 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "data": {"url": "FuentesCSV/urlsmasusados.csv"},
   "encoding": {
-    "y": {"field": "urlsmasusados", "type": "ordinal"},
+    "y": {"field": "urlsmasusados", "type": "ordinal", "sort": "-x"},
     "x": {"field": "count", "type": "quantitative"}
   },
   "layer": [{
