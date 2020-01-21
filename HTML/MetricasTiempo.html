@@ -105,20 +105,20 @@
                 <h3>
                     Número de tweets vs. Número de RT por dia
                 </h3>
-                <p>Upon yielding, kind sea subdue very seed sixth them 
-lesser one lesser there earth days were multiply so sixth gathering 
-fifth that man fowl made.</p>
+                <p>En la siguiente imagen podemos observar el numero de Tweets y Re tweets 
+                    por dia.</p>
            <div id="graficaTweetsPorDia"></div>
+            <div id="graficaRetweetsPorDia"></div>
              </div>
            
             <div class="col-md-6 portfolio-item">
                 <h3>
                     Número de tweets Vs. Número de RT por hora
                 </h3>
-                <p>Upon yielding, kind sea subdue very seed sixth them 
-lesser one lesser there earth days were multiply so sixth gathering 
-fifth that man fowl made.</p>
-           <div id="graficaRetweetsPorDia"></div>
+                <p>En la siguiente imagen podemos observar el numero de Tweets y Re tweets 
+                    por hora.</p>
+                <div id="graficaTweetsPorHora"></div>
+                <div id="graficaRetweetsPorHora"></div>
             </div>
         </div>
         
@@ -176,6 +176,60 @@ fifth that man fowl made.</p>
     ;
     // Embed the visualization in the container with id `vis`
     vegaEmbed('#graficaTweetsPorDia', vlSpec3);
+        
+        
+    //En esta grafica se mostraran los retweets por hora.
+    const vlSpec2 = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+        data: {
+            "url": "FuentesCSV/retweetsPorHora.csv"
+        },
+        "width": 320,
+        "height": 200,
+        mark: 'area',
+        encoding: {
+            x: {
+                field: 'hora',
+                type: 'quantitative',
+                title: 'Hora del día',
+                scale: {"domain": [0, 24]}
+            },
+            y: {
+                field: 'count',
+                aggregate: 'sum',
+                type: 'quantitative',
+                title: 'Retweets por Hora'
+            }
+        }
+    };
+    vegaEmbed('#graficaRetweetsPorHora', vlSpec2); 
+
+    // En esta grafica se muestra los tweets por hora.
+    const vlSpec4 = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+        data: {
+            "url": "FuentesCSV/tweetsPorHora.csv"
+        },
+        "width": 320,
+        "height": 200,
+        mark: 'area',
+        encoding: {
+            x: {
+                field: 'hour',
+                type: 'quantitative',
+                title: 'Tweets por Hora',
+                scale: {"domain": [0, 23]}
+            },
+            y: {
+                field: 'count',
+                aggregate: 'sum',
+                type: 'quantitative',
+                title: 'Tweets por Hora'
+            }
+        }
+    };
+    vegaEmbed('#graficaTweetsPorHora', vlSpec4);
+  
         
     </script>
         

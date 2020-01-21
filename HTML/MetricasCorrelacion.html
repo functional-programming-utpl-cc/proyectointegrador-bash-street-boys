@@ -85,10 +85,10 @@
         <!-- Título y descripción antes de la imagen -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Métricas de correlacion
+                <center><h1 class="page-header">Correlacion Pearson
 
                     <small></small>
-                </h1>
+                    </h1></center>
                 <a href="#">
                     <center><img style="width:768px; height:200px;" src="imagenes/intro.png"/></center>
                 </a>
@@ -104,44 +104,39 @@
             <div class="col-md-6 portfolio-item">
                 
                 <h3>
-                    Métricas de correlacion
+                    ¿Qué es el coeficiente de correlación de Pearson?
                 </h3>
-                <p>En la siguiente grafica se puede apreciar las correlacion pearson </p>
+                <p>El Coeficiente de Correlación de Pearson es una medida de la correspondencia o relación lineal entre dos variables cuantitativas aleatorias. En palabras más simples se puede definir como un índice utilizado para medir el grado de relación que tienen dos variables, ambas cuantitativas.
+                Teniendo dos variables, la correlación facilita que se hagan estimaciones del valor de una de ellas, con conocimiento del valor de la otra variable.
+                Este coeficiente es una medida que indica la situación relativa de los sucesos respecto a las dos variables, es decir, representa la expresión numérica que indica el grado de correspondencia o relación que existe entre las 2 variables. Estos números varían entre límites de +1 y -1.
+                </p>
+                
+                <h3>
+                    ¿Cómo ese interpreta el coeficiente de correlación de Pearson?
+                </h3>
+                <p>El valor del índice de correlación varía en el intervalo [-1,1], indicando el signo el sentido de la relación:
+                    <br>•	Si r = 1, existe una correlación positiva perfecta. El índice indica una dependencia total entre las dos variables denominada relación directa: cuando una de ellas aumenta, la otra también lo hace en proporción constante.
+                    <br>•	Si 0 < r < 1, existe una correlación positiva.
+                    <br>•	Si r = 0, no existe relación lineal. Pero esto no necesariamente implica que las variables son independientes: pueden existir todavía relaciones no lineales entre las dos variables.
+                    <br>•	Si -1 < r < 0, existe una correlación negativa.
+                    <br>•	Si r = -1, existe una correlación negativa perfecta. El índice indica una dependencia total entre las dos variables llamada relación inversa: cuando una de ellas aumenta, la otra disminuye en proporción constante.
+                </p>
+                <h3>
+                    ¿Cómo calcular correlación de Pearson?
+                </h3>
+                <p>
+                Se define como la relación entre la covarianza y el producto de su desviación estándar
+                    <br> Coef.Correlacion de Pearson: R = Oxy/OxOy
+            
+
+                </p>
            <div id="graficaTweetsPorDia"></div>
              </div>
            
             
         </div>
         
-        <!-- /.Las gráficas van aqui, dentro del Script: -->
-    <script>
-    const vlSpec3 = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
-        data: {
-            "url": "FuentesCSV/tweetsPorDia.csv"
-        },
-        "width": 320,
-        "height": 200,
-        mark: 'bar',
-        encoding: {
-            x: {
-                field: 'dia',
-                type: 'quantitative',
-                title: 'Día del mes',
-                "scale": {"domain": [1, 27]}
-            },
-            y: {
-                field: 'count',
-                type: 'quantitative',
-                title: 'Tweets por dia'
-            }
-        }
-    }
-    ;
-    // Embed the visualization in the container with id `vis`
-    vegaEmbed('#graficaTweetsPorDia', vlSpec3);
-        
-    </script>
+   
         
     <!-- jQuery -->
     <script src="lib/jquery-1.js"></script>
