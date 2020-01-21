@@ -110,21 +110,23 @@
         
         <!-- /.Las gráficas van aqui, dentro del Script: -->
     <script>
-    // Cada gráfica se guarda en una var. llamada "vlSpecN".
-     // En esta grafica se mostrar las app mas utilizadas para publicar tweets.
-    const vlSpec7 = {
+    
+        
+    // En esta grafica se mostrar las app mas utilizadas para publicar tweets.
+    const graficaApps = {
       "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
       "description": "Apps mas usuadas para publicar tweets.",
       "data": {"url": "FuentesCSV/appsMasUsadas.csv"},
       "mark": "bar",
       "encoding": {
         "x": {"field": "count", "type": "quantitative"},
-        "y": {"field": "app", "type": "nominal"}
+        "y": {"field": "app", "type": "nominal", "sort": "-x"}
       }
     }
 
     // Embed the visualization in the container with id `vis`
-    vegaEmbed('#graficaAppsMasUsadas', vlSpec7);
+    vegaEmbed('#graficaAppsMasUsadas', graficaApps);
+        
 
     </script>
         
