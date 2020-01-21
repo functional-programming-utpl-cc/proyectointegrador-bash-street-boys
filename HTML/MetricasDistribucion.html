@@ -110,16 +110,17 @@ lesser one lesser there earth days were multiply so sixth gathering
 fifth that man fowl made.</p>
            <div id="graficaDistribucionHashtags"></div>
              </div>
-           
-            <div class="col-md-6 portfolio-item">
+           <div class="col-md-6 portfolio-item">
+                
                 <h3>
-                    Distribución de Menciones
+                    Origen de los tweets
                 </h3>
                 <p>Upon yielding, kind sea subdue very seed sixth them 
 lesser one lesser there earth days were multiply so sixth gathering 
 fifth that man fowl made.</p>
-           <div id="graficaDistribucionHashtags"></div>
-            </div>
+           <div id="graficaOrigenDelTweet"></div>
+             </div>
+            
         </div>
         
          <div class="row">
@@ -131,7 +132,7 @@ fifth that man fowl made.</p>
                 <p>Upon yielding, kind sea subdue very seed sixth them 
 lesser one lesser there earth days were multiply so sixth gathering 
 fifth that man fowl made.</p>
-           <div id="graficaDistribucionHashtags"></div>
+           <div id="graficaDistribucionURLs"></div>
              </div>
            
             <div class="col-md-6 portfolio-item">
@@ -146,108 +147,109 @@ fifth that man fowl made.</p>
         </div>
         
          <div class="row">
-            <div class="col-md-6 portfolio-item">
-                
-                <h3>
-                    Origen de los tweets
-                </h3>
-                <p>Upon yielding, kind sea subdue very seed sixth them 
-lesser one lesser there earth days were multiply so sixth gathering 
-fifth that man fowl made.</p>
-           <div id="graficaDistribucionHashtags"></div>
-             </div>
-           
-            <div class="col-md-6 portfolio-item">
+            
+           <div class="col-md-6 portfolio-item">
                 <h3>
                     Distribución de Menciones
                 </h3>
                 <p>Upon yielding, kind sea subdue very seed sixth them 
 lesser one lesser there earth days were multiply so sixth gathering 
 fifth that man fowl made.</p>
-           <div id="graficaDistribucionHashtags"></div>
+           <div id="graficaMencionesPorTweet"></div>
             </div>
+            
         </div>
         
         
         <!-- /.Las gráficas van aqui, dentro del Script: -->
     <script>
     // En esta grafica se muestra la distribucion de hashtags.
-    const vlSpec5 = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
-        data: {
-            "url": "FuentesCSV/DistribucionHashtags.csv"
-        },
-        "width": 320,
-        "height": 200,
-        mark: 'bar',
-        encoding: {
-            x: {
-                field: 'NumHashtags',
-                type: 'quantitative',
-                title: 'Hashtags por tweet',
-                "scale": {"domain": [1, 20]}
-            },
-            y: {
-                field: 'count',
-                type: 'quantitative',
-                title: 'Distribución de hashtags'
-            }
-        }
+        const vlSpec5 = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "description": "A bar chart that sorts the y-values by the x-values.",
+  "data": {"url": "FuentesCSV/DistribucionHashtags.csv"},
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "field": "NumHashtags",
+      "type": "ordinal",
+      "sort": "-x"
+    },
+    "x": {
+      "field": "count",
+      "type": "quantitative",
+      "axis": {"title": "Distribución de hashtags"}
     }
-    ;
+  }
+}
+    
     // Embed the visualization in the container with id `vis`
     vegaEmbed('#graficaDistribucionHashtags', vlSpec5);
-        
-    const vlSpec3 = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
-        data: {
-            "url": "FuentesCSV/tweetsPorDia.csv"
-        },
-        "width": 320,
-        "height": 200,
-        mark: 'bar',
-        encoding: {
-            x: {
-                field: 'dia',
-                type: 'quantitative',
-                title: 'Día del mes',
-                "scale": {"domain": [1, 27]}
-            },
-            y: {
-                field: 'count',
-                type: 'quantitative',
-                title: 'Tweets por dia'
-            }
-        }
-    }
-    ;
-    // Embed the visualization in the container with id `vis`
-    vegaEmbed('#graficaTweetsPorDia', vlSpec3);
+       
     
     // el numero de usuarion mas mencionado ordenaos en desendentemente 
-    const vlSpec8 = {
-      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "description": "A bar chart that sorts the y-values by the x-values.",
-      "data": {"url": "FuentesCSV/DistribucionMenciones.csv"},
-      "mark": "bar",
-      "encoding": {
-        "y": {
-          "field": "mencion",
-          "type": "nominal",
-          
-        },
-        "x": {
-          
-          "field": "count",
-          "type": "quantitative",
-          
-         
-        }
-      }
+    const graficaMenciones = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": {"url": "FuentesCSV/MencionesPorTweet.csv"},
+  "encoding": {
+    "y": {"field": "mention", "type": "ordinal"},
+    "x": {"field": "count", "type": "quantitative"}
+  },
+  "layer": [{
+    "mark": "bar"
+  }, {
+    "mark": {
+      "type": "text",
+      "align": "left",
+      "baseline": "middle",
+      "dx": 3
+    },
+    "encoding": {
+      "text": {"field": "count", "type": "quantitative"}
     }
+  }]
+}
     
     // Embed the visualization in the container with id `vis`
-    vegaEmbed('#graficaMencionesPorTweet', vlSpec8);
+    vegaEmbed('#graficaMencionesPorTweet', graficaMenciones);
+        
+        const graficaURLs = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": {"url": "FuentesCSV/urlsmasusados.csv"},
+  "encoding": {
+    "y": {"field": "urlsmasusados", "type": "ordinal"},
+    "x": {"field": "count", "type": "quantitative"}
+  },
+  "layer": [{
+    "mark": "bar"
+  }, {
+    "mark": {
+      "type": "text",
+      "align": "left",
+      "baseline": "middle",
+      "dx": 3
+    },
+    "encoding": {
+      "text": {"field": "count", "type": "quantitative"}
+    }
+  }]
+}
+
+    vegaEmbed('#graficaDistribucionURLs', graficaURLs);    
+        
+        const graficaOrigenTweet = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+      "description": "Origen de las cuentas generadoras del tweet.",
+      "data": {"url": "FuentesCSV/origenDelTweet.csv"},
+      "mark": "bar",
+      "encoding": {
+        "x": {"field": "count", "type": "quantitative"},
+        "y": {"field": "location", "type": "nominal"}
+      }
+    }
+
+    // Embed the visualization in the container with id `vis`
+    vegaEmbed('#graficaOrigenDelTweet', graficaOrigenTweet);
         
     </script>
         

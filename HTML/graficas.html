@@ -26,7 +26,7 @@
 <div id="graficaDistribucionHashtags"></div>
 <div id="graficaOrigenDelTweet"></div>
 <div id="graficaAppsMasUsadas"></div>
-<!-- <div id="graficaMencionesPorTweet"></div> // TODO Grafica que no funciona omitida temporalmente-->
+<div id="graficaMencionesPorTweet"></div>
 <dev id="graficaDistribucionURLs"></dev>
 <dev id="tweetsVsRtPorDia"></dev>
 
@@ -176,28 +176,24 @@
     // Assign the specification to a local variable vlSpec.
     // En esta grafica se muestra la distribucion de hashtags.
     const vlSpec5 = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
-        data: {
-            "url": "FuentesCSV/DistribucionHashtags.csv"
-        },
-        "width": 320,
-        "height": 200,
-        mark: 'bar',
-        encoding: {
-            x: {
-                field: 'NumHashtags',
-                type: 'quantitative',
-                title: 'Hashtags por tweet',
-                "scale": {"domain": [1, 20]}
-            },
-            y: {
-                field: 'count',
-                type: 'quantitative',
-                title: 'Distribución de hashtags'
-            }
-        }
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "description": "A bar chart that sorts the y-values by the x-values.",
+  "data": {"url": "FuentesCSV/DistribucionHashtags.csv"},
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "field": "NumHashtags",
+      "type": "ordinal",
+      "sort": "-x"
+    },
+    "x": {
+      "field": "count",
+      "type": "quantitative",
+      "axis": {"title": "Distribución de hashtags"}
     }
-    ;
+  }
+}
+    
     // Embed the visualization in the container with id `vis`
     vegaEmbed('#graficaDistribucionHashtags', vlSpec5);
     
@@ -237,25 +233,26 @@
     // Assign the specification to a local variable vlSpec.
     // el numero de usuarion mas mencionado ordenaos en desendentemente 
     const vlSpec8 = {
-      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "description": "A bar chart that sorts the y-values by the x-values.",
-      "data": {"url": "FuentesCSV/DistribucionMenciones.csv"},
-      "mark": "bar",
-      "encoding": {
-        "y": {
-          "field": "mencion",
-          "type": "nominal",
-          
-        },
-        "x": {
-          
-          "field": "count",
-          "type": "quantitative",
-          
-         
-        }
-      }
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "data": {"url": "FuentesCSV/MencionesPorTweet.csv"},
+  "encoding": {
+    "y": {"field": "mention", "type": "ordinal"},
+    "x": {"field": "count", "type": "quantitative"}
+  },
+  "layer": [{
+    "mark": "bar"
+  }, {
+    "mark": {
+      "type": "text",
+      "align": "left",
+      "baseline": "middle",
+      "dx": 3
+    },
+    "encoding": {
+      "text": {"field": "count", "type": "quantitative"}
     }
+  }]
+}
     
     // Embed the visualization in the container with id `vis`
     vegaEmbed('#graficaMencionesPorTweet', vlSpec8);
@@ -267,11 +264,7 @@
     "y": {"field": "urlsmasusados", "type": "ordinal"},
     "x": {"field": "count", "type": "quantitative"}
   },
-    {
-    "transform": [
-     {"filter": {"field": "count", "gte": 100}}
-    ] 
- , "layer": [{
+  "layer": [{
     "mark": "bar"
   }, {
     "mark": {
