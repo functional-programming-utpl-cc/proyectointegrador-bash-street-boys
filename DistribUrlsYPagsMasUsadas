@@ -18,6 +18,9 @@ import kantan.csv.generic._
 import kantan.csv.java8.localDateTimeDecoder
 import scala.collection.immutable.ListMap
 
+// Una de las caracteristica de la progrmacion funcional es que los datos son inmutables y se los crean con la palabra reservada val
+//que usura frecuentemente en adelante
+
 // Creamos una una variable que recibe la direccion de nuestro archivo csv
 val path2DataFile = "C:\\Users\\harry\\Documents\\David\\PF\\ods_2_3.csv"
 
@@ -52,10 +55,24 @@ case class Tweet(
                   statusURL: String,
                   entitiesURL: String
                 )
+                
+/* Creamos la variable decoder del tipo de dato CellDecoder[LocalDateTime] instanciadando  localDateTimeDecoder para facilitar y
+dar el formato a la fecha. Y ahora se puede codificar facilmente dats que contienen instancias de LocalDateTime*/
 implicit val decoder : CellDecoder[LocalDateTime] = localDateTimeDecoder(formatDateTime)
+
+*/ Creamos la variable dataSource donde usamos un contructor de tipo File para pasar el path de nuestro csv y luego utilizar la
+funcion .readCsv en el cual se le da la estructura que sea una lista con el formato de nuestro objeto Tweet y que tenga ese 
+encabezado*/
 val dataSource = new File(path2DataFile).readCsv[List, Tweet](rfc.withHeader)
+
+/*Damos el nombre values a nuestro datos capturados unicamente que sean correctos  case Right(tweet) y que seran devueltos 
+dentro de la funcion collect que nos permite pasar funciones paraciales donde el case omite los datos que no sean Rigth */
 val values = dataSource.collect({ case Right(tweet) => tweet })
+
+// Creamos fromUsersList variable que contiene lo datos mapeados de values que es un atributo del objeto tweet denominado fromUser
 val fromUsersList = values.map(tweet => tweet.fromUser)
+
+// la siguiente linea nos da como resultado el numero de usuarios sin repetirse
 println(fromUsersList.toSet.size)
 
 //devuelve una lista con los datos del campo source
