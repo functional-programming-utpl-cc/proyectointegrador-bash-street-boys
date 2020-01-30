@@ -1,21 +1,39 @@
+/* Las librerias que utilizadas en el proyecto se las puede encontrar en https://mvnrepository.com/ 
+las cuales se  importan en nustro archivo sbt. Ahora bien nuestro libreria java.io.File la utilizamos para pasar el path,
+es decir la direccion de donde se encuentra nuestro archivo csv proporcionado para nuestro proyecto, luego tenemos las librerias
+LocalDateTime y DateTimeFormatter que usamos para dar el tipo de dato fecha dias/mes/anio y su uso 
+adecuado,como siguiente importamos la libreria Regex para hacer uso de las expresiones regulares 
+mediante la instaciacion de un objeto Regex ,tambien tenemos la importacion de Kantan para el tratamiento 
+adecuado de nuestro csv, ademas usamos localDateTimeDecoder para poder usar el decodificador para elegir que formato de fecha 
+vamos usar, finalmente tenemos ListMap para poder crear una lista que contengas la estructura de mapas (clave-> valor).
+*/
+
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-
 import scala.util.matching.Regex// librería para poder usar expresiones regulares
 import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
 import kantan.csv.java8.localDateTimeDecoder
-
 import scala.collection.immutable.ListMap
 
+// Una de las caracteristica de la progrmacion funcional es que los datos son inmutables y se los crean con la palabra reservada val
+//que usura frecuentemente en adelante
+
+// Creamos una una variable que recibe la direccion de nuestro archivo csv
 val path2DataFile = "C:\\Users\\harry\\Documents\\David\\PF\\ods_2_3.csv"
+
+// Creamos la la variable formatDateTime que es instanciada por DateTimeFormatter para especificarel formato de fecha
 val formatDateTime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
-// expresion regular para encontrar url
-val pattern = new Regex("((http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:\\/~\\+#]*[\\w\\-\\@?^=%&amp;\\/~\\+#])?)")
-//EXPRESION REGULAR PARA ENCONTAR NOMBRES DE LAS PAGINAS WEB
+// Creamos la la variable  patternURL que recibe la expresion regular para encontrar url
+val patternURL = new Regex("((http|ftp|https):\\/\\/[\\w\\-_]+(\\.[\\w\\-_]+)+([\\w\\-\\.,@?^=%&amp;:\\/~\\+#]*[\\w\\-\\@?^=%&amp;\\/~\\+#])?)")
+
+// Creamos la la variable  patternURL que recibe la expresion regular para encontrar url
 val pattern = new Regex(">.\\w*\\s\\w*\\s\\w*<")
+
+/* En el siguiente bloque de codigo creamos el objeto Tweet con 18 atributos que representan nuestran 18 columnas del csv, con el
+fin de manipular con mayor facilidad nuestros datos, como e vera mas adelate en nuestro codigo el uso de tweet.text . */
 
 case class Tweet(
                   idStr: String,
@@ -31,19 +49,43 @@ case class Tweet(
                   inReply2StatusId: String,
                   source: String,
                   profileImageURL: String,
-                  userFollowersCount: Either[String, Int],
-                  userFriendsCount: Either[String, Int],
+                  userFollowersCount: Double,
+                  userFriendsCount: Double,
                   userLocation: String,
                   statusURL: String,
                   entitiesURL: String
                 )
+                
+/* Creamos la variable decoder del tipo de dato CellDecoder[LocalDateTime] instanciadando  localDateTimeDecoder para facilitar y
+dar el formato a la fecha. Y ahora se puede codificar facilmente dats que contienen instancias de LocalDateTime*/
 implicit val decoder : CellDecoder[LocalDateTime] = localDateTimeDecoder(formatDateTime)
+
+*/ Creamos la variable dataSource donde usamos un contructor de tipo File para pasar el path de nuestro csv y luego utilizar la
+funcion .readCsv en el cual se le da la estructura que sea una lista con el formato de nuestro objeto Tweet y que tenga ese 
+encabezado*/
 val dataSource = new File(path2DataFile).readCsv[List, Tweet](rfc.withHeader)
+
+/*Damos el nombre values a nuestro datos capturados unicamente que sean correctos  case Right(tweet) y que seran devueltos 
+dentro de la funcion collect que nos permite pasar funciones paraciales donde el case omite los datos que no sean Rigth */
 val values = dataSource.collect({ case Right(tweet) => tweet })
+
+// Creamos fromUsersList variable que contiene lo datos mapeados de values que es un atributo del objeto tweet denominado fromUser
 val fromUsersList = values.map(tweet => tweet.fromUser)
+
+// la siguiente linea nos da como resultado el numero de usuarios sin repetirse
 println(fromUsersList.toSet.size)
 
-//devuelve una lista con los datos del campo source
+/* En el siguiente bloque de codigo se aprecia la distribucion de paginas web's mas usadas de tal manera que al mapear a values
+que la primera linea devuelve una lista con los datos del campo source a la cual se les extrae el nombre de las paginas con la
+funcion parcial que busca el primer patron en la cadena pattern.findFirstIn(x) , dicho patron es la expresion regular que antes 
+mencionamos para los nombres de las paginas, luego creamos una funcion parcial desnenvolver que utilizamos para extraer unicamente
+nuestros datos correctos Some(value:String) => value.tail.init a los cuales les quitamos el primer y utlimo caracter ya que nuestra
+expresion regular nos devuelve por ejemplo >Twiter for Android<*, a continuacion se hace uso de la funcion parcial para tener los 
+nombres de las paginas totalmente limpios y empezaar a agruparlos  mediante el metodo .groupBy(identity).map({case (k,v)=>(k,v.length)})
+propio de collections como es nuestra lista namesPagesWebs al cual se le psa el argumento identity que nos permite reunir datos con
+el mismo nombre y final mente los mapeamos con la estructura de un mapa solicitando que el el v.length nos proporcione la cantidad
+de veces que se uso ese aplicacion web, como por ejemplo */
+
 val fromSourceList = values.map(tweet=> tweet.source)
 val extraccionPWfromSource = fromSourceList.map(x=> pattern.findFirstIn(x))
 val desnenvolver:PartialFunction[Any, String] = { case Some(value:String) => value.tail.init}
