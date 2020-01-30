@@ -75,7 +75,17 @@ val fromUsersList = values.map(tweet => tweet.fromUser)
 // la siguiente linea nos da como resultado el numero de usuarios sin repetirse
 println(fromUsersList.toSet.size)
 
-//devuelve una lista con los datos del campo source
+/* En el siguiente bloque de codigo se aprecia la distribucion de paginas web's mas usadas de tal manera que al mapear a values
+que la primera linea devuelve una lista con los datos del campo source a la cual se les extrae el nombre de las paginas con la
+funcion parcial que busca el primer patron en la cadena pattern.findFirstIn(x) , dicho patron es la expresion regular que antes 
+mencionamos para los nombres de las paginas, luego creamos una funcion parcial desnenvolver que utilizamos para extraer unicamente
+nuestros datos correctos Some(value:String) => value.tail.init a los cuales les quitamos el primer y utlimo caracter ya que nuestra
+expresion regular nos devuelve por ejemplo >Twiter for Android<*, a continuacion se hace uso de la funcion parcial para tener los 
+nombres de las paginas totalmente limpios y empezaar a agruparlos  mediante el metodo .groupBy(identity).map({case (k,v)=>(k,v.length)})
+propio de collections como es nuestra lista namesPagesWebs al cual se le psa el argumento identity que nos permite reunir datos con
+el mismo nombre y final mente los mapeamos con la estructura de un mapa solicitando que el el v.length nos proporcione la cantidad
+de veces que se uso ese aplicacion web, como por ejemplo */
+
 val fromSourceList = values.map(tweet=> tweet.source)
 val extraccionPWfromSource = fromSourceList.map(x=> pattern.findFirstIn(x))
 val desnenvolver:PartialFunction[Any, String] = { case Some(value:String) => value.tail.init}
